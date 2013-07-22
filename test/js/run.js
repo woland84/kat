@@ -3,8 +3,8 @@
  * @author <a href="mailto:alex@flanche.net">Alex Dumitru</a>
  */
 jQuery(document).ready(function () {
-  //nice and simple
-  var service = new kat.main.KATService("#text");
-  service.run();
-})
-
+  var myJOBAD = window.myJOBAD = new JOBAD("#text");
+  myJOBAD.modules.load("kat", function(){
+  	myJOBAD.Setup(); 
+  });
+});

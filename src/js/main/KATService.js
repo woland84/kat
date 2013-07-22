@@ -23,7 +23,7 @@ FlancheJs.defineClass("kat.main.KATService", {
           type : 'error'
         })
       }
-      var preProcessor = new kat.preprocessor.TextPreprocessor(this._selector, "", this._ontologyRegistry, this._conceptRegistry, this._annotationRegistry);
+      var preProcessor = this._preProcessor = new kat.preprocessor.TextPreprocessor(this._selector, "", this._ontologyRegistry, this._conceptRegistry, this._annotationRegistry);
       preProcessor.run();
       var currentAnnotations = this._annotationRegistry.getAnnotations();
       var renderedAnnotations = [];
@@ -31,9 +31,9 @@ FlancheJs.defineClass("kat.main.KATService", {
         var renderer = new kat.display.AnnotationRenderer(currentAnnotations[i], this._conceptRegistry);
         renderedAnnotations.push(renderer.render())
       }
-      var displayer = new kat.Display(renderedAnnotations);
+      var displayer = this._displayer = new kat.Display(renderedAnnotations);
       displayer.run();
-      var ontologyViewer = new kat.display.AnnotationOntologyViewer(this._ontologyRegistry, this._conceptRegistry, this._annotationRegistry);
+      var ontologyViewer = this._ontologyViewer = new kat.display.AnnotationOntologyViewer(this._ontologyRegistry, this._conceptRegistry, this._annotationRegistry);
       ontologyViewer.run();
     }
   },
@@ -42,7 +42,10 @@ FlancheJs.defineClass("kat.main.KATService", {
     selector: null,
     annotationRegsitry: null,
     ontologyRegistry: null,
-    conceptRegistry: null
+    conceptRegistry: null,
+    preProcessor: null, 
+    displayer: null, 
+    ontologyViewer: null
   }
 
 })
